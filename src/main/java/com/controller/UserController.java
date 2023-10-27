@@ -17,7 +17,11 @@ public class UserController {
     public ResponseEntity<?> getListUser() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getListUser());
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUserById(@PathVariable int id) {
+        System.out.println(id);
+        return null;
+    }
 
     @PostMapping("")
     public ResponseEntity<?> createUser() {
