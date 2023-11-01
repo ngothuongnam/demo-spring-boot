@@ -3,8 +3,11 @@ package com.services;
 import com.entity.User;
 import com.model.dto.UserDto;
 import com.model.mapper.UserMapper;
+import com.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +20,8 @@ public class UserServiceImpl implements UserService{
         this.users.add(new User(2, "BC", "b.gmail.com", "0965271254", "Avatar2", "220496"));
         this.users.add(new User(3, "CD", "c.gmail.com", "0952207859", "Avatar3", "060771"));
     }
+    @Autowired
+    private UserRepository userRepository;
     @Override
     public List<UserDto> getListUser() {
         List<UserDto> userDtos = new ArrayList<>();
@@ -27,13 +32,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDto getUserByID(int id) {
-        for (User user: this.users){
-            if (user.getId() == id){
-                return UserMapper.toUserDto(user);
-            }
-        }
-        return null;
+    public UserDto getUserByID(int id) throws SQLException {
+        User userInput = new User(id,null,null,null,null,null);
+        User userOutput = this.userRepository.getUserByID(userInput);
+        return UserMapper.toUserDto(userOutput);
     }
 
     @Override

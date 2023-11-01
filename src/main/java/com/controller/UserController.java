@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
+
 /*
 MVC:
     View: JSP
@@ -29,7 +31,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getListUser());
     }
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable int id) {
+    public ResponseEntity<?> getUserById(@PathVariable int id) throws SQLException {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getUserByID(id));
     }
     @GetMapping("/search")
